@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package crud;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "./";
+
+
+service CRUDService {
+    rpc Create(CreateRequest) returns (IdResponse);
+    rpc Read(IdRequest) returns (TaskResponse);
+    rpc BatchCreate(BatchRequest) returns (google.protobuf.Empty);
+    rpc Update(UpdateRequest) returns (TaskResponse);
+    rpc Delete(IdRequest) returns (google.protobuf.Empty);
+}
+
+message CreateRequest {
+    string name = 1;
+    string status = 2;
+}
+
+message BatchRequest {
+    repeated CreateRequest items = 1;
+}
+
+message UpdateRequest {
+    string id = 1;
+    string name = 2;
+    string status = 3;
+}
+
+message IdRequest {
+    string id = 1;
+}
+
+message IdResponse {
+    string id = 1;
+}
+
+message TaskResponse {
+    string id = 1;
+    string name = 2;
+    string status = 3;
+}
+
